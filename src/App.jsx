@@ -53,6 +53,16 @@ export default function App() {
     footer: { x: 0, y: 1220 }
   });
 
+  const [styles, setStyles] = useState({
+    themeColor: '#0f4f3d',
+    brandFontSize: 51,
+    brandColor: '#eac36f',
+    dateFontSize: 33,
+    dateColor: '#e8f0e9',
+    messageFontSize: 50,
+    messageColor: '#f3f4f2',
+  });
+
   const objectUrlRegistry = useRef([]);
 
   useEffect(() => () => {
@@ -146,6 +156,54 @@ export default function App() {
             <textarea rows={2} value={fields.message} onChange={(e) => setFields((p) => ({ ...p, message: e.target.value }))} />
           </label>
         </section>
+
+        <section className="grid-fields">
+          <h2>Styling Controls</h2>
+          <label>
+            Theme Color (Pills/Cards)
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <input type="color" value={styles.themeColor} onChange={(e) => setStyles((p) => ({ ...p, themeColor: e.target.value }))} />
+              <input type="text" value={styles.themeColor} onChange={(e) => setStyles((p) => ({ ...p, themeColor: e.target.value }))} style={{ width: '80px' }} />
+            </div>
+          </label>
+
+          <div className="style-group">
+            <h3>Brand Styling</h3>
+            <label>
+              Font Size
+              <input type="number" value={styles.brandFontSize} onChange={(e) => setStyles((p) => ({ ...p, brandFontSize: parseInt(e.target.value) || 0 }))} />
+            </label>
+            <label>
+              Color
+              <input type="color" value={styles.brandColor} onChange={(e) => setStyles((p) => ({ ...p, brandColor: e.target.value }))} />
+            </label>
+          </div>
+
+          <div className="style-group">
+            <h3>Date Styling</h3>
+            <label>
+              Font Size
+              <input type="number" value={styles.dateFontSize} onChange={(e) => setStyles((p) => ({ ...p, dateFontSize: parseInt(e.target.value) || 0 }))} />
+            </label>
+            <label>
+              Color
+              <input type="color" value={styles.dateColor} onChange={(e) => setStyles((p) => ({ ...p, dateColor: e.target.value }))} />
+            </label>
+          </div>
+
+          <div className="style-group">
+            <h3>Message Styling</h3>
+            <label>
+              Font Size
+              <input type="number" value={styles.messageFontSize} onChange={(e) => setStyles((p) => ({ ...p, messageFontSize: parseInt(e.target.value) || 0 }))} />
+            </label>
+            <label>
+              Color
+              <input type="color" value={styles.messageColor} onChange={(e) => setStyles((p) => ({ ...p, messageColor: e.target.value }))} />
+            </label>
+          </div>
+        </section>
+
       </aside>
 
       <main className="canvas-wrap">
@@ -184,7 +242,7 @@ export default function App() {
               draggable
               onDragEnd={(e) => updateBlock('title', { x: e.target.x(), y: e.target.y() })}
             >
-              <Text text={safeFields.brandName} width={430} align="center" fontSize={51} fontStyle="bold" fill="#eac36f" />
+              <Text text={safeFields.brandName} width={430} align="center" fontSize={styles.brandFontSize} fontStyle="bold" fill={styles.brandColor} />
             </Group>
 
             <Group
@@ -193,8 +251,8 @@ export default function App() {
               draggable
               onDragEnd={(e) => updateBlock('datePill', { x: e.target.x(), y: e.target.y() })}
             >
-              <Rect width={290} height={40} fill="#0f4f3d" />
-              <Text text={safeFields.dateText} width={290} y={8} align="center" fontSize={33} fill="#e8f0e9" />
+              <Rect width={290} height={40} fill={styles.themeColor} />
+              <Text text={safeFields.dateText} width={290} y={8} align="center" fontSize={styles.dateFontSize} fill={styles.dateColor} />
             </Group>
 
             <Group
@@ -203,7 +261,7 @@ export default function App() {
               draggable
               onDragEnd={(e) => updateBlock('rateCard', { x: e.target.x(), y: e.target.y() })}
             >
-              <Rect width={590} height={142} cornerRadius={16} fill="#1d4f46" stroke="#ced8d4" strokeWidth={2} />
+              <Rect width={590} height={142} cornerRadius={16} fill={styles.themeColor} stroke="#ced8d4" strokeWidth={2} />
               <Text text="TODAY'S GOLD RATE" x={165} y={12} fontSize={37} fill="#e8ecea" />
               <Line points={[18, 52, 572, 52]} stroke="#98a928" strokeWidth={2} />
               <Line points={[196, 66, 196, 124]} stroke="#9db61e" strokeWidth={2} />
@@ -225,7 +283,7 @@ export default function App() {
               draggable
               onDragEnd={(e) => updateBlock('message', { x: e.target.x(), y: e.target.y() })}
             >
-              <Text text={safeFields.message} width={560} align="center" fontSize={50} fill="#f3f4f2" />
+              <Text text={safeFields.message} width={560} align="center" fontSize={styles.messageFontSize} fill={styles.messageColor} />
             </Group>
 
             <Group

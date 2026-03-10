@@ -78,3 +78,20 @@ textarea {
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);
 }
+
+.style-group {
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  padding: 0.8rem;
+  background: #f8fafc;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.style-group h3 {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
